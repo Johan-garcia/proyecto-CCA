@@ -1,0 +1,172 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f9;
+    color: #333;
+}
+
+/* Header */
+header {
+    background: #1f2937;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: center;
+    background: #374151;
+    padding: 10px 0;
+}
+
+nav button {
+    background: none;
+    color: #ffffff;
+    border: 2px solid transparent;
+    font-size: 1rem;
+    margin: 0 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+nav button:hover {
+    background: #ffffff;
+    color: #374151;
+    border-color: #6b7280;
+    transform: scale(1.05);
+}
+
+nav button.active {
+    background: #3b82f6;
+    color: #fff;
+    border-color: #3b82f6;
+    transform: scale(1.05);
+}
+
+/* Secciones */
+.section {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Máquina de Turing */
+.tape-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.tape {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px;
+    background: #f9fafb;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+
+.tape-cell {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+
+.tape-cell.highlight {
+    background-color: #eef;
+    border-color: blue;
+}
+
+.state-display {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#pda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; 
+}
+
+#pda form {
+    width: 100%;
+    max-width: 600px; 
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+#pda textarea,
+#pda input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Courier New', Courier, monospace; 
+    line-height: 1.5;
+}
+
+#pda button {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.3s ease;
+}
+
+#pda button:hover {
+    background: #2563eb;
+}
+
+#pdaResult {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    line-height: 1.6;
+}
+
+#pdaResult div {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+}

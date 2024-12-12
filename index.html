@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Herramienta de Lenguajes Formales y Modelos Computacionales</title>
+    <link rel="stylesheet" href="/final avanzada/final avanzada/final avanzada/css/styles.css" />
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+<body>
+    <header>
+        Herramienta de Lenguajes Formales y Modelos Computacionales
+    </header>
+
+    <nav>
+        <button class="menu-btn" onclick="showSection('languageType')">Tipo de Lenguaje</button>
+        <button class="menu-btn" onclick="showSection('automata')">Autómatas Finitos</button>
+        <button class="menu-btn" onclick="showSection('reduccion')">Reducción de Autómata</button>
+        <button class="menu-btn" onclick="showSection('pda')">Autómata de Pila</button>
+        <button class="menu-btn" onclick="showSection('turingMachine')">Máquina de Turing</button>
+    </nav>
+
+    <main>
+        <!-- Sección Tipo de Lenguaje -->
+        <section id="languageType" class="section hidden">
+            <h2>Tipo de Lenguaje</h2>
+            <form>
+                <label for="languageTypeInput">Ingresa un lenguaje (formato: a^n, b^m , a^n, b^m, a^2n):</label>
+                <input type="text" id="languageTypeInput" placeholder="Ej: a^n, b^m , a^n, b^m, a^2n" required>
+                <label for="nValue">Valor de n:</label>
+                <input type="number" id="nValue" placeholder="Valor de n" required>
+                <label for="mValue">Valor de m:</label>
+                <input type="number" id="mValue" placeholder="Valor de m" required>
+                <button type="button" id="checkLanguageTypeBtn">Comprobar Regularidad</button>
+            </form>
+            <div id="languageResult"></div>
+        </section>
+
+        <!-- Sección Autómatas Finitos -->
+        <section id="automata" class="section hidden">
+            <h2>Autómatas Finitos</h2>
+            <div class="buttons-container">
+                <button id="addNode">Crear Estado</button>
+                <button id="addEdge">Agregar Transición</button>
+                <button id="setInitialState">Establecer Estado Inicial</button>
+                <button id="setFinalStates">Establecer Estado Final</button>
+                <button id="processString">Procesar Cadena</button>
+                <button id="showTransitionMatrix">Mostrar Matriz de Transiciones</button>
+            </div>
+            <div id="mynetwork" style="width: 800px; height: 900px; border: 1px solid black; margin:auto;"></div>
+        </section>
+
+        <!-- Sección Reducción de Autómata -->
+        <section id="reduccion" class="section hidden">
+            <h2>Reducción de Autómata</h2>
+            <form>
+                <label>Ingresa un Autómata (JSON):</label><br>
+                <textarea id="automatonJSON" rows="10" cols="50" placeholder='{
+    "states": ["q0", "q1", "q2", "q3", "q4"],
+    "alphabet": ["0", "1"],
+    "initial": "q0",
+    "accepting": ["q0", "q1", "q2", "q3"],
+    "transitions": {
+        "q0": {"0": "q1", "1": "q2"},
+        "q1": {"0": "q1", "1": "q3"},
+        "q2": {"0": "q1", "1": "q4"},
+        "q3": {"0": "q1", "1": "q4"},
+        "q4": {"0": "q4", "1": "q4"}
+    }
+}'></textarea><br>
+                <button type="button" id="reduceAutomatonBtn">Verificar Reducción</button>
+            </form>
+            <div id="reductionResult">
+                <h3>Autómata Original</h3>
+                <div id="originalAutomatonNetwork" style="width: 600px; height: 400px; border: 1px solid black; margin:auto;"></div>
+                <div id="originalTransitionTable"></div>
+
+                <h3>Autómata Reducido</h3>
+                <div id="reducedAutomatonNetwork" style="width: 600px; height: 400px; border: 1px solid black; margin:auto;"></div>
+                <div id="reducedTransitionTable"></div>
+            </div>
+        </section>
+
+
+        <!-- Sección Automata de Pila -->
+        <section id="pda" class="section hidden">
+            <h2>Autómata de Pila (PDA)</h2>
+            <form id="pdaForm">
+                <label for="transitions">Transiciones del Automata (una por línea):</label>
+                <textarea id="transitions" rows="5" placeholder="(q0, a, Z) -> (q1, X)
+(q1, a, X) -> (q1, X)
+(q1, b, X) -> (q2, E)
+(q2, b, X) -> (q2, E)
+(q2, #, Z) -> (qf, Z)"></textarea>
+
+                <label for="inputWord">Palabra a procesar:</label>
+                <input type="text" id="inputWord" placeholder="aaabbb">
+
+                <button type="button" id="simulatePDA">Simular Autómata</button>
+            </form>
+
+            <h3>Resultados de la Simulación:</h3>
+            <div id="pdaResult"></div>
+        </section>
+
+        <!-- Sección Máquina de Turing -->
+        <section id="turingMachine" class="section">
+            <h2>Simulador de Máquina de Turing</h2>
+            <div class="input-section">
+                <h3>Ingreso del Lenguaje (Cinta Inicial)</h3>
+                <input type="text" id="entradaCinta" placeholder="Ej: 0101" value="0101" />
+                <button id="cargarCinta">Cargar Cinta</button>
+            </div>
+
+            <div class="transition-section">
+                <h3>Funciones de Transición</h3>
+                <p>Formato: (estado, símbolo_lectura) -> (nuevo_estado, símbolo_escritura, dirección)</p>
+                <textarea id="funcionesTransicion" rows="6" cols="50">
+(q0, 0) -> (q0, 0, R)
+(q0, 1) -> (q0, 0, R)
+(q0, #) -> (q1, #, L)
+(q1, 0) -> (q1, 0, L)
+(q1, #) -> (q2, #, R)
+                </textarea>
+                <button id="cargarTransiciones">Cargar Transiciones</button>
+            </div>
+
+            <div class="controls">
+                <button id="iniciar">Iniciar</button>
+                <button id="pasoAPaso">Paso a Paso</button>
+                <button id="reiniciar">Reiniciar</button>
+            </div>
+
+            <div class="tape-container">
+                <h3>Cinta</h3>
+                <div class="tape" id="cinta"></div>
+            </div>
+
+            <div class="state-display">
+                <h4>Estado actual: <span id="estadoActual">q0</span></h4>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/tipolenguaje.js" defer></script>
+    <script src="js/automata.js" defer></script>
+    <script src="js/reduccion.js" defer></script>
+    <script src="/final avanzada/final avanzada/final avanzada/js/script.js" defer></script>
+    <script src="js/pda.js" defer></script>
+    <script>
+        function showSection(sectionId) {
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+            if (section.id === sectionId) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+            }
+        });
+
+        const buttons = document.querySelectorAll('.menu-btn');
+        buttons.forEach(button => {
+            if (button.getAttribute('onclick') === `showSection('${sectionId}')`) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+    }
+    </script>
+</body>
+</html>
